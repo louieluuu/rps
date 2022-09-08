@@ -355,16 +355,18 @@ function playAgain() {
     if (userInput === "y") {
         startGameLoop();
     }
-    if (userInput === "n") {
+    else if (userInput === "n") {
         alert("Thank you for playing!");
     }
-
+    else if (userInput === null) {
+        return;
+    }
 }
 
 function startGameLoop() {
     resetScores();
     // best of 5
-    while (userScore + computerScore != 5) { 
+    while (userScore < 3 && computerScore < 3) { 
         let userInput = getUserInput(); // good
         let computerInput = getComputerInput(); // good
         printResult(userInput, computerInput);
