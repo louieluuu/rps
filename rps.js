@@ -1,3 +1,9 @@
+/*
+top examples: 
+https://github.com/michalosman/rock-paper-scissors/commit/b1179e9a69e68fdb1d93615b1fd74edb9c526a44
+https://github.com/lookingcoolonavespa/rock-paper-scissors/commit/29ea22d1ebf2fc521c416723662b2a8d0f5bfa8f
+*/
+
 // global variables
 let userScore;
 let computerScore;
@@ -81,8 +87,8 @@ function getRandomInt() {
 }
 
 function playRound(userInput, computerInput) {
-    let result = getResult(userInput, computerInput);
     console.log("I choose... " + computerInput.toUpperCase() + "!");
+    let result = getResult(userInput, computerInput);
     if (result === "tie") {
         console.log("Your " + userInput + " ties with my " + computerInput + ".");
     }
