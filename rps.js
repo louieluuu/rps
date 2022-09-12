@@ -1,14 +1,26 @@
 /*
-top examples: 
+top examples:
+https://github.com/lookingcoolonavespa/rock-paper-scissors/commit/29ea22d1ebf2fc521c416723662b2a8d0f5bfa8f 
 https://github.com/michalosman/rock-paper-scissors/commit/b1179e9a69e68fdb1d93615b1fd74edb9c526a44
-https://github.com/lookingcoolonavespa/rock-paper-scissors/commit/29ea22d1ebf2fc521c416723662b2a8d0f5bfa8f
 */
 
 // global variables
 let userScore;
 let computerScore;
 
-startGameLoop();
+//startGameLoop();
+
+/*
+WHEN you click rock button
+call getUserInput();
+
+
+*/
+
+const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
+console.log(rockButton);
+rockButton.addEventListener("click", getUserInput);
+
 
 function startGameLoop() {
     resetScores();
