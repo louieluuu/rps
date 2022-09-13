@@ -12,12 +12,12 @@ const results = document.querySelector(".result");
 startGameLoop();
 
 function startGameLoop() {
+    results.replaceChildren();
     resetScores();
     //while (userScore < 3 && computerScore < 3) { // best of 5 condition that accounts for ties
     //getUserInput();
     //}
     getUserInput();
-    //printWinner();
     //playAgain();
 }
 
@@ -32,7 +32,8 @@ function getUserInput() {
     const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
     const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
 
-
+    // Sukhdeep: why not rockButton.addEventListener("click", playRock("rock", getComputerInput()))?
+    // have to pass the separate "redundant" func playRock() instead :|
     rockButton.addEventListener("click", playRock);
     paperButton.addEventListener("click", playPaper);
     scissorsButton.addEventListener("click", playScissors);
@@ -95,7 +96,7 @@ function playRound(userInput, computerInput) {
 function playRound(userInput, computerInput) {
     let result = getResult(userInput, computerInput);
     updateScore(result);
-    results.replaceChildren(); //PogChamp
+    results.replaceChildren(); //PogChamp - gets rid of all the computerText child nodes, i.e. clears the screen of the printResult
     printResult(userInput, computerInput, result);
 }
 
@@ -170,19 +171,28 @@ function printResult(userInput, computerInput, result) {
     const computerText3 = document.createElement("h1");
     computerText3.textContent = "The score is " + userScore + "-" + computerScore + ".";
     results.append(computerText3);
+
+    // Computer: "You WIN!? Lucky..."
+    if (userScore > 2 || computerScore > 2) {
+       printWinner();
+       playAgain();
+    }
 }
 
 function printWinner() {
+    const winnerText = document.createElement("h1");
+
     let winner = getWinner();
     if (winner === "user") {
-        console.log("You... WIN!? Lucky rascal...");
+        winnerText.textContent = "You... WIN!? Lucky rascal...";
     }
     else if (winner === "computer") {
-        console.log("You LOSE! This game is all skill, and you ain't got none! Better skill next time!");
+        winnerText.textContent = "You LOSE! This game is all skill, and you ain't got none! Better skill next time!";
     }
     else {
-        console.log("ERROR: no winner?")
+        winnerText.textContent = "ERROR: no winner?";
     }
+    results.append(winnerText);
 }
 
 function getWinner() {
@@ -200,17 +210,30 @@ function getWinner() {
 }
 
 function playAgain() {
-    let userInput = prompt("Play again? (Type <y> or <n>.)");
-    if (userInput === null) {
-        return;
-    }
-    while (userInput != "y" && userInput != "n") {
-        userInput = prompt("Invalid input. Please type <y> or <n>.");
-    }
+    const playAgainText = document.createElement("h1");
+    playAgainText.textContent = "Play again?"
+    results.append(playAgainText);
+
+    /*
     if (userInput === "y") {
         startGameLoop();
     }
     else if (userInput === "n") {
         alert("Thank you for playing!");
     }
+    */
+    const yesButton = document.createElement("button");
+    yesButton.textContent = "Yes";
+    results.append(yesButton);
+
+    const noButton = document.createElement("button");
+    noButton.textContent = "No";
+    results.append(noButton);
+
+    yesButton.addEventListener("click", startGameLoop);
+    noButton.addEventListener("click", endGameLoop);
+}
+
+function endGameLoop() {
+    alert("Thanks for playing... noob");
 }
