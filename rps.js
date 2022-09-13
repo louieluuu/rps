@@ -8,29 +8,20 @@ https://github.com/michalosman/rock-paper-scissors/commit/b1179e9a69e68fdb1d9361
 let userScore;
 let computerScore;
 
-//startGameLoop();
-
-/*
-WHEN you click rock button
-call getUserInput();
-
-
-*/
-
-const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
-console.log(rockButton);
-rockButton.addEventListener("click", getUserInput);
-
+startGameLoop();
 
 function startGameLoop() {
     resetScores();
-    while (userScore < 3 && computerScore < 3) { // best of 5 condition that accounts for ties
+    //while (userScore < 3 && computerScore < 3) { // best of 5 condition that accounts for ties
+       getUserInput();
+        /*
         let userInput = getUserInput();
         let computerInput = getComputerInput();
         playRound(userInput, computerInput);
-    }
-    printWinner();
-    playAgain();
+        */
+    //}
+    //printWinner();
+    //playAgain();
 }
 
 function resetScores() {
@@ -39,40 +30,28 @@ function resetScores() {
 }
 
 function getUserInput() {
-    let userInput = prompt("Rock, paper, scissors, shoot! (Type <r>, <p>, or <s>.)");
-         // if cancel is pressed:
-        if (userInput === null) {
-            return; // not sure if there's a better thing to put here
-        }
-    while (
-        userInput !== "r" &&
-        userInput !== "p" &&
-        userInput !== "s"
-    ) {
-        userInput = prompt("Invalid input. Please type <r>, <p>, or <s>.)");
-    } 
-    userInput = translateInput(userInput);
-    return userInput;
-}
+    // creating the buttons
+    const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
+    const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
+    const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
 
-function translateInput(input) {
-    let translatedInput;
-    if (input === "r") 
-        {
-            translatedInput = "rock";
-        }
-    else if (input === "p")
-        {
-            translatedInput = "paper";
-        }
-    else if (input === "s")
-        {
-            translatedInput = "scissors";
-        }
-    else if (input === null) {
-            return;
-        }
-    return translatedInput;
+
+    rockButton.addEventListener("click", playRock);
+    paperButton.addEventListener("click", playPaper);
+    scissorsButton.addEventListener("click", playScissors);
+
+    function playRock() {
+        playRound("rock", getComputerInput());
+    }
+
+    function playPaper() {
+        playRound("paper", getComputerInput());
+    }
+
+    function playScissors() {
+        playRound("scissors", getComputerInput());
+    }
+    
 }
 
 function getComputerInput() {
