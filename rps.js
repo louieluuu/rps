@@ -7,19 +7,16 @@ https://github.com/michalosman/rock-paper-scissors/commit/b1179e9a69e68fdb1d9361
 // global variables
 let userScore;
 let computerScore;
+const results = document.querySelector(".result");
 
 startGameLoop();
 
 function startGameLoop() {
     resetScores();
     //while (userScore < 3 && computerScore < 3) { // best of 5 condition that accounts for ties
-       getUserInput();
-        /*
-        let userInput = getUserInput();
-        let computerInput = getComputerInput();
-        playRound(userInput, computerInput);
-        */
+    //getUserInput();
     //}
+    getUserInput();
     //printWinner();
     //playAgain();
 }
@@ -77,6 +74,7 @@ function getRandomInt() {
     return randomInt;
 }
 
+/*
 function playRound(userInput, computerInput) {
     console.log("I choose... " + computerInput.toUpperCase() + "!");
     let result = getResult(userInput, computerInput);
@@ -92,8 +90,17 @@ function playRound(userInput, computerInput) {
     updateScore(result);
     printScore();
 }
+*/
+
+function playRound(userInput, computerInput) {
+    let result = getResult(userInput, computerInput);
+    updateScore(result);
+    results.replaceChildren(); //PogChamp
+    printResult(userInput, computerInput, result);
+}
 
 function getResult(userInput, computerInput) {
+    let result;
     if (userInput === "rock") {
         if (computerInput === "rock") {
             result = "tie";
@@ -140,12 +147,29 @@ function updateScore(result) {
     // else tie: score stays the same
 }
 
-function printScore() {
-    console.log("The score is " + userScore + "-" + computerScore + ".");
-}
+function printResult(userInput, computerInput, result) {
+    // Computer: "I choose..."
+    const computerText = document.createElement("h1");
+    computerText.textContent = "I choose... " + computerInput.toUpperCase() + "!";
+    results.append(computerText);
 
-function playAgain() {
-    checkValidInput();
+    // Computer: "Your ____ ties with my _____."
+    const computerText2 = document.createElement("h1");
+    if (result === "tie") {
+        computerText2.textContent = "Your " + userInput + " ties with my " + computerInput + ".";
+    }
+    else if (result === "lose") {
+        computerText2.textContent = "My " + computerInput + " beats your " + userInput + ".";
+    }
+    else if (result === "win") {
+        computerText2.textContent = "Your " + userInput + " beats my " + computerInput + ".";
+    }
+    results.append(computerText2);
+
+    // Computer: "The score is..."
+    const computerText3 = document.createElement("h1");
+    computerText3.textContent = "The score is " + userScore + "-" + computerScore + ".";
+    results.append(computerText3);
 }
 
 function printWinner() {
