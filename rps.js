@@ -7,12 +7,21 @@ https://github.com/michalosman/rock-paper-scissors/commit/b1179e9a69e68fdb1d9361
 // global variables
 let userScore;
 let computerScore;
-const results = document.querySelector(".result");
+const results = document.querySelector(".results");
 
-startGameLoop();
+// creating the buttons
+const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
+const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
+const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
+
+playGame();
+
+function playGame() {
+    startGameLoop();
+}
 
 function startGameLoop() {
-    results.replaceChildren();
+    results.replaceChildren(); // clears the screen of text
     resetScores();
     //while (userScore < 3 && computerScore < 3) { // best of 5 condition that accounts for ties
     //getUserInput();
@@ -27,10 +36,9 @@ function resetScores() {
 }
 
 function getUserInput() {
-    // creating the buttons
-    const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
-    const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
-    const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
+    const computerText = document.createElement("h1");
+    computerText.textContent = "Rock, paper, scissors, SHOOT!"
+    results.append(computerText);
 
     // Sukhdeep: why not rockButton.addEventListener("click", playRock("rock", getComputerInput()))?
     // have to pass the separate "redundant" func playRock() instead :|
@@ -140,22 +148,23 @@ function getResult(userInput, computerInput) {
 
 function updateScore(result) {
         if (result === "lose") {
-            computerScore += 1;
+            computerScore++;
         }
         else if (result === "win") {
-            userScore += 1;
+            userScore++;
         }
     // else tie: score stays the same
 }
 
+// FYI: spans should be used in lieu of h1 for inline text
 function printResult(userInput, computerInput, result) {
     // Computer: "I choose..."
-    const computerText = document.createElement("h1");
+    const computerText = document.createElement("h3");
     computerText.textContent = "I choose... " + computerInput.toUpperCase() + "!";
     results.append(computerText);
 
     // Computer: "Your ____ ties with my _____."
-    const computerText2 = document.createElement("h1");
+    const computerText2 = document.createElement("h2");
     if (result === "tie") {
         computerText2.textContent = "Your " + userInput + " ties with my " + computerInput + ".";
     }
@@ -168,7 +177,7 @@ function printResult(userInput, computerInput, result) {
     results.append(computerText2);
 
     // Computer: "The score is..."
-    const computerText3 = document.createElement("h1");
+    const computerText3 = document.createElement("h2");
     computerText3.textContent = "The score is " + userScore + "-" + computerScore + ".";
     results.append(computerText3);
 
@@ -210,7 +219,7 @@ function getWinner() {
 }
 
 function playAgain() {
-    const playAgainText = document.createElement("h1");
+    const playAgainText = document.createElement("h2");
     playAgainText.textContent = "Play again?"
     results.append(playAgainText);
 
@@ -230,10 +239,10 @@ function playAgain() {
     noButton.textContent = "No";
     results.append(noButton);
 
-    yesButton.addEventListener("click", startGameLoop);
+    yesButton.addEventListener("click", playGame);
     noButton.addEventListener("click", endGameLoop);
 }
 
 function endGameLoop() {
-    alert("Thanks for playing... noob");
+    alert("What could possibly be more worth your time than playing ro sham bo with your old buddy... get back here");
 }
