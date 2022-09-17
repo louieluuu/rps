@@ -14,11 +14,23 @@ const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
 const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
 const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
 
-playGame();
+rockButton.addEventListener("click", playRock);
+paperButton.addEventListener("click", playPaper);
+scissorsButton.addEventListener("click", playScissors);
 
-function playGame() {
-    startGameLoop();
+function playRock() {
+    playRound("rock", getComputerInput());
 }
+
+function playPaper() {
+    playRound("paper", getComputerInput());
+}
+
+function playScissors() {
+    playRound("scissors", getComputerInput());
+}
+
+startGameLoop();
 
 function startGameLoop() {
     results.replaceChildren(); // clears the screen of text
@@ -39,24 +51,6 @@ function getUserInput() {
     const computerText = document.createElement("h1");
     computerText.textContent = "Rock, paper, scissors, SHOOT!"
     results.append(computerText);
-
-    // Sukhdeep: why not rockButton.addEventListener("click", playRock("rock", getComputerInput()))?
-    // have to pass the separate "redundant" func playRock() instead :|
-    rockButton.addEventListener("click", playRock);
-    paperButton.addEventListener("click", playPaper);
-    scissorsButton.addEventListener("click", playScissors);
-
-    function playRock() {
-        playRound("rock", getComputerInput());
-    }
-
-    function playPaper() {
-        playRound("paper", getComputerInput());
-    }
-
-    function playScissors() {
-        playRound("scissors", getComputerInput());
-    }
     
 }
 
@@ -239,7 +233,7 @@ function playAgain() {
     noButton.textContent = "No";
     results.append(noButton);
 
-    yesButton.addEventListener("click", playGame);
+    yesButton.addEventListener("click", startGameLoop);
     noButton.addEventListener("click", endGameLoop);
 }
 
