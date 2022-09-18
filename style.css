@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 15vh
+    margin-top: 15vh;
 }
 
 * {
@@ -25,21 +25,29 @@ body {
     transform: translateY(2px);
 }
 
-.text h3 {
+.text {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text h3 {
     font-style: italic;
     font-weight: 400;
-    justify-content: center;
 }
 
 .text h2 {
-    display: flex;
-    justify-content: center;
     margin: 0;
 }
 
-.text button {
+.endButton {
+    display: flex;
+    justify-content: space-between;
+}
+
+.endButton button {
     padding: 4px 16px;
     background-color: #c7d8f3;
     border-radius: 1em;
 }
+

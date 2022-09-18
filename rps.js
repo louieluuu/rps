@@ -1,17 +1,21 @@
+// BUG: Yes/no buttons still not centered
+
 // global variables
 let userScore;
 let computerScore;
 const text = document.querySelector(".text");
+const endButton = document.querySelector(".endButton");
 
 // creating the buttons
 const rockButton = document.querySelector('img[src="./imgs/rock.png"]');
 const paperButton = document.querySelector('img[src="./imgs/paper.png"]');
 const scissorsButton = document.querySelector('img[src="./imgs/scissors.png"]');
 
-// adding click events
-rockButton.addEventListener("click", playRock);
-paperButton.addEventListener("click", playPaper);
-scissorsButton.addEventListener("click", playScissors);
+function activateButtons() {
+    rockButton.addEventListener("click", playRock);
+    paperButton.addEventListener("click", playPaper);
+    scissorsButton.addEventListener("click", playScissors);
+}
 
 function playRock() {
     playRound("rock");
@@ -88,6 +92,7 @@ function updateScore(result) {
 // gets rid of all the computerText child nodes, i.e. clears the screen of the printResult
 function clearText() {
     text.replaceChildren();
+    endButton.replaceChildren();
 }
 
 function printResult(userInput, computerInput, result) {
@@ -136,23 +141,32 @@ function printWinner() {
 }
 
 function playAgain() {
+    decativateButtons(); // prevent user from playing after the game has ended
+
     const playAgainText = document.createElement("h2");
     playAgainText.textContent = "Play again?"
     text.append(playAgainText);
 
     const yesButton = document.createElement("button");
     yesButton.textContent = "Yes";
-    text.append(yesButton);
+    endButton.append(yesButton);
 
     const noButton = document.createElement("button");
     noButton.textContent = "No";
-    text.append(noButton);
+    endButton.append(noButton);
 
     yesButton.addEventListener("click", startGameLoop);
     noButton.addEventListener("click", endGameLoop);
 }
 
+function decativateButtons() {
+    rockButton.removeEventListener("click", playRock);
+    paperButton.removeEventListener("click", playPaper);
+    scissorsButton.removeEventListener("click", playScissors);
+}
+
 function startGameLoop() {
+    activateButtons();
     resetScores();
     clearText();
     promptUser();
